@@ -21,7 +21,7 @@ export default function AuthScreen() {
             router.push('/auth/login');
           }}
         />
-        <Link href={'/'} style={styles.signupText}>
+        <Link href={'/auth/signup'} style={styles.signupText}>
           이메일로 가입하기
         </Link>
       </View>

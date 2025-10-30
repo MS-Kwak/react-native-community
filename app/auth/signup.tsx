@@ -2,7 +2,7 @@ import FixedBottomCTA from '@/components/FixedBottomCTA';
 import InputField from '@/components/InputField';
 import { StyleSheet, View } from 'react-native';
 
-export default function LoginScreen() {
+export default function SingupScreen() {
   return (
     <>
       <View style={styles.container}>
@@ -14,8 +14,12 @@ export default function LoginScreen() {
           label="비밀번호"
           placeholder="비밀번호를 입력해주세요."
         />
+        <InputField
+          label="비밀번호 확인"
+          placeholder="비밀번호를 입력해주세요."
+        />
       </View>
-      <FixedBottomCTA label="로그인하기" onPress={() => {}} />
+      <FixedBottomCTA label="회원가입하기" onPress={() => {}} />
     </>
   );
 }
