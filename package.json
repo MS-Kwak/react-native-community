@@ -7,8 +7,10 @@
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",
+    "start:clear": "expo start --clear",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo start --android",
+    "android:clear": "expo start --android --clear",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest --watchAll",

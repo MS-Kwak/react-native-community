@@ -7,6 +7,7 @@ export default function AuthLayout() {
     <Stack
       screenOptions={{
         headerTintColor: colors.BLACK,
+        headerTitleAlign: "center",
         contentStyle: {
           backgroundColor: colors.WHITE,
         },

@@ -1,14 +1,12 @@
-import { router, useFocusEffect } from "expo-router";
-import { SafeAreaView, Text } from "react-native";
+import { SafeAreaView, Text } from 'react-native';
+import AuthRoute from '@/components/AuthRoute';
 
 export default function MyScreen() {
-  useFocusEffect(() => {
-    router.replace("/auth");
-  });
-
   return (
-    <SafeAreaView>
-      <Text>내정보 스크린</Text>
-    </SafeAreaView>
+    <AuthRoute>
+      <SafeAreaView>
+        <Text>내정보 스크린</Text>
+      </SafeAreaView>
+    </AuthRoute>
   );
 }
