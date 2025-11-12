@@ -1,21 +1,26 @@
-import { colors } from "@/constants";
-import React, { ForwardedRef, forwardRef } from "react";
+import { colors } from '@/constants';
+import React, { ForwardedRef, forwardRef } from 'react';
 import {
   StyleSheet,
   Text,
   TextInput,
   TextInputProps,
   View,
-} from "react-native";
+} from 'react-native';
 
 interface InputFieldProps extends TextInputProps {
   label?: string;
-  variant?: "filled" | "standard" | "outlined";
+  variant?: 'filled' | 'standard' | 'outlined';
   error?: string;
 }
 
 function InputField(
-  { label, variant = "filled", error = "", ...props }: InputFieldProps,
+  {
+    label,
+    variant = 'filled',
+    error = '',
+    ...props
+  }: InputFieldProps,
   ref?: ForwardedRef<TextInput>
 ) {
   return (
@@ -25,6 +30,7 @@ function InputField(
         style={[
           styles.container,
           styles[variant],
+          props.multiline && styles.multiLine,
           Boolean(error) && styles.inputError,
         ]}
       >
@@ -48,9 +54,9 @@ const styles = StyleSheet.create({
     height: 44,
     borderRadius: 8,
     paddingHorizontal: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   label: {
     fontSize: 12,
@@ -74,6 +80,11 @@ const styles = StyleSheet.create({
   },
   inputError: {
     backgroundColor: colors.RED_100,
+  },
+  multiLine: {
+    alignItems: 'flex-start',
+    paddingVertical: 10,
+    height: 200,
   },
 });
 
