@@ -1,5 +1,6 @@
 import { getMe, postLogin, postSignup } from '@/api/auth';
 import queryClient from '@/api/queryClient';
+import { queryKeys } from '@/constants';
 import { removeHeader, setHeader } from '@/utils/header';
 import {
   deleteSecureStore,
@@ -13,7 +14,7 @@ import { useEffect } from 'react';
 function useGetMe() {
   const { data, isError, isSuccess } = useQuery({
     queryFn: getMe,
-    queryKey: ['auth', 'getMe'],
+    queryKey: [queryKeys.AUTH, queryKeys.GET_ME],
   });
 
   useEffect(() => {
@@ -41,7 +42,9 @@ function useLogin() {
     onSuccess: async ({ accessToken }) => {
       setHeader('Authorization', `Bearer ${accessToken}`);
       await saveSecureStore('accessToken', accessToken);
-      queryClient.fetchQuery({ queryKey: ['auth', 'getMe'] });
+      queryClient.fetchQuery({
+        queryKey: [queryKeys.AUTH, queryKeys.GET_ME],
+      });
       router.replace('/');
     },
     onError: () => {
@@ -68,7 +71,7 @@ function useAuth() {
   const logout = () => {
     removeHeader('Authorization');
     deleteSecureStore('accessToken');
-    queryClient.resetQueries({ queryKey: ['auth'] });
+    queryClient.resetQueries({ queryKey: [queryKeys.AUTH] });
   };
 
   return {
