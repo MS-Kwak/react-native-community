@@ -1,17 +1,22 @@
-import { colors } from "@/constants";
-import React from "react";
-import { Pressable, PressableProps, StyleSheet, Text } from "react-native";
+import { colors } from '@/constants';
+import React from 'react';
+import {
+  Pressable,
+  PressableProps,
+  StyleSheet,
+  Text,
+} from 'react-native';
 
 interface CustomButtonProps extends PressableProps {
   label: string;
-  size?: "medium" | "large";
-  variant?: "filled";
+  size?: 'medium' | 'large';
+  variant?: 'standard' | 'filled';
 }
 
 function CustomButton({
   label,
-  size = "large",
-  variant = "filled",
+  size = 'large',
+  variant = 'filled',
   ...props
 }: CustomButtonProps) {
   return (
@@ -32,19 +37,24 @@ function CustomButton({
 const styles = StyleSheet.create({
   container: {
     borderRadius: 8,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   large: {
-    width: "100%",
+    width: '100%',
     height: 44,
   },
   medium: {},
   filled: {
     backgroundColor: colors.ORANGE_600,
     fontSize: 14,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: colors.WHITE,
+  },
+  standard: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: colors.ORANGE_600,
   },
   pressed: {
     opacity: 0.8,
