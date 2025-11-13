@@ -1,6 +1,17 @@
-import { colors } from "@/constants";
-import React, { ReactNode } from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { colors } from '@/constants';
+import React, { ReactNode } from 'react';
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import 'dayjs/locale/ko';
+dayjs.extend(relativeTime);
+dayjs.locale('ko');
 
 interface ProfileProps {
   onPress: () => void;
@@ -24,13 +35,15 @@ function Profile({
           source={
             imageUri
               ? { uri: imageUri }
-              : require("@/assets/images/default-avatar.png")
+              : require('@/assets/images/default-avatar.png')
           }
           style={styles.avatar}
         />
         <View style={{ gap: 4 }}>
           <Text style={styles.nickname}>{nickname}</Text>
-          <Text style={styles.createdAt}>{createdAt}</Text>
+          <Text style={styles.createdAt}>
+            {dayjs(createdAt).fromNow()}
+          </Text>
         </View>
       </Pressable>
       {option}
@@ -41,13 +54,13 @@ function Profile({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   profileContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 8,
   },
   avatar: {
@@ -59,7 +72,7 @@ const styles = StyleSheet.create({
   },
   nickname: {
     fontSize: 15,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: colors.BLACK,
   },
   createdAt: {
