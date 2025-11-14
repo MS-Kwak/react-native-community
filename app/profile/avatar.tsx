@@ -6,9 +6,17 @@ import useAuth from '@/hooks/queries/useAuth';
 import useGetAvatarItems from '@/hooks/queries/useGetAvatarItems';
 import { useNavigation } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import {
+  FlatList,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import PagerView from 'react-native-pager-view';
 import Toast from 'react-native-toast-message';
+import { SvgUri } from 'react-native-svg';
+import { baseUrls } from '@/api/axios';
 
 export default function AvatarScreen() {
   const navigation = useNavigation();
@@ -23,7 +31,7 @@ export default function AvatarScreen() {
     topId: auth?.topId ?? '',
     bottomId: auth?.bottomId ?? '',
     handId: auth?.handId ?? '',
-    skinId: auth?.skinId ?? '',
+    skinId: auth?.skinId ?? '01',
   });
 
   const getImageId = (url: string) => {
@@ -52,6 +60,17 @@ export default function AvatarScreen() {
     });
   };
 
+  const getAvatarItemUrl = (category: string, id?: string) => {
+    const baseUrl =
+      Platform.OS === 'ios' ? baseUrls.ios : baseUrls.android;
+
+    if (category === 'default' || !Boolean(id)) {
+      return `${baseUrl}/default/frame.svg`;
+    }
+
+    return `${baseUrl}/items/${category}/${id}.svg`;
+  };
+
   useEffect(() => {
     navigation.setOptions({
       headerStyle: {
@@ -63,6 +82,50 @@ export default function AvatarScreen() {
   return (
     <>
       <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          <View style={styles.avatarContainer}>
+            {avatarItem.hatId && (
+              <SvgUri
+                uri={getAvatarItemUrl('hats', avatarItem.hatId)}
+                style={[styles.avatar, { zIndex: 70 }]}
+              />
+            )}
+            {avatarItem.faceId && (
+              <SvgUri
+                uri={getAvatarItemUrl('faces', avatarItem.faceId)}
+                style={[styles.avatar, { zIndex: 60 }]}
+              />
+            )}
+            {avatarItem.topId && (
+              <SvgUri
+                uri={getAvatarItemUrl('tops', avatarItem.topId)}
+                style={[styles.avatar, { zIndex: 50 }]}
+              />
+            )}
+            {avatarItem.bottomId && (
+              <SvgUri
+                uri={getAvatarItemUrl('bottoms', avatarItem.bottomId)}
+                style={[styles.avatar, { zIndex: 40 }]}
+              />
+            )}
+            <SvgUri
+              uri={getAvatarItemUrl('default')}
+              style={[styles.avatar, { zIndex: 30 }]}
+            />
+            {avatarItem.skinId && (
+              <SvgUri
+                uri={getAvatarItemUrl('skins', avatarItem.skinId)}
+                style={[styles.avatar, { zIndex: 20 }]}
+              />
+            )}
+            {avatarItem.handId && (
+              <SvgUri
+                uri={getAvatarItemUrl('hands', avatarItem.handId)}
+                style={[styles.avatar, { zIndex: 10 }]}
+              />
+            )}
+          </View>
+        </View>
         <View style={styles.tabContainer}>
           {['모자', '얼굴', '상의', '하의', '손', '피부'].map(
             (tab, index) => (
@@ -121,6 +184,28 @@ export default function AvatarScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  headerContainer: {
+    alignItems: 'center',
+    position: 'relative',
+    backgroundColor: colors.ORANGE_200,
+    width: '100%',
+    height: 115,
+    marginBottom: 115,
+  },
+  avatarContainer: {
+    width: 229,
+    height: 229,
+    borderRadius: 229,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: colors.GRAY_200,
+    backgroundColor: colors.WHITE,
+  },
+  avatar: {
+    width: 229,
+    height: 229,
+    position: 'absolute',
   },
   listContainer: {
     paddingBottom: 120,
