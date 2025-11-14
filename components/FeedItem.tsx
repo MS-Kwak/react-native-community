@@ -13,7 +13,8 @@ import { useActionSheet } from '@expo/react-native-action-sheet';
 import useDeletePost from '@/hooks/queries/useDeletePost';
 import { router } from 'expo-router';
 import ImagePreviewList from './ImagePreviewList';
-import Vote from '@/components/Vote';
+import Vote from './Vote';
+import useLikePost from '@/hooks/queries/useLikePost';
 
 interface FeedItemProps {
   post: Post;
@@ -26,6 +27,7 @@ function FeedItem({ post, isDetail = false }: FeedItemProps) {
   const isLiked = likeUsers?.includes(Number(auth.id));
   const { showActionSheetWithOptions } = useActionSheet();
   const deletePost = useDeletePost();
+  const likePost = useLikePost();
 
   const handlePressOption = () => {
     const options = ['삭제', '수정', '취소'];
@@ -57,6 +59,19 @@ function FeedItem({ post, isDetail = false }: FeedItemProps) {
     if (!isDetail) {
       router.push(`/post/${post.id}`);
     }
+  };
+
+  const handlePressLike = () => {
+    if (!auth.id) {
+      router.push('/auth');
+      return;
+    }
+    if (!isDetail) {
+      router.push(`/post/${post.id}`);
+      return;
+    }
+
+    likePost.mutate(post.id);
   };
 
   const ContainerComponent = isDetail ? View : Pressable;
@@ -113,7 +128,7 @@ function FeedItem({ post, isDetail = false }: FeedItemProps) {
         )}
       </View>
       <View style={styles.menuContainer}>
-        <Pressable style={styles.menu}>
+        <Pressable style={styles.menu} onPress={handlePressLike}>
           <Octicons
             name={isLiked ? 'heart-fill' : 'heart'}
             size={16}
@@ -125,7 +140,7 @@ function FeedItem({ post, isDetail = false }: FeedItemProps) {
             {post.likes.length || '좋아요'}
           </Text>
         </Pressable>
-        <Pressable style={styles.menu}>
+        <Pressable style={styles.menu} onPress={handlePressFeed}>
           <MaterialCommunityIcons
             name="comment-processing-outline"
             size={16}
@@ -135,7 +150,7 @@ function FeedItem({ post, isDetail = false }: FeedItemProps) {
             {post.commentCount || '댓글'}
           </Text>
         </Pressable>
-        <Pressable style={styles.menu}>
+        <Pressable style={styles.menu} onPress={handlePressFeed}>
           <Ionicons
             name="eye-outline"
             size={16}
