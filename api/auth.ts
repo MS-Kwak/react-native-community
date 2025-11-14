@@ -1,6 +1,6 @@
-import { Profile } from "@/types";
-import axiosInstance from "./axios";
-import { getSecureStore } from "@/utils/secureStore";
+import { Profile } from '@/types';
+import axiosInstance from './axios';
+import { getSecureStore } from '@/utils/secureStore';
 
 type RequestUser = {
   email: string;
@@ -8,21 +8,23 @@ type RequestUser = {
 };
 
 async function postSignup(body: RequestUser): Promise<void> {
-  const { data } = await axiosInstance.post("/auth/signup", body);
+  const { data } = await axiosInstance.post('/auth/signup', body);
 
   return data;
 }
 
-async function postLogin(body: RequestUser): Promise<{ accessToken: string }> {
-  const { data } = await axiosInstance.post("/auth/signin", body);
+async function postLogin(
+  body: RequestUser
+): Promise<{ accessToken: string }> {
+  const { data } = await axiosInstance.post('/auth/signin', body);
 
   return data;
 }
 
 async function getMe(): Promise<Profile> {
-  const accessToken = await getSecureStore("accessToken");
+  const accessToken = await getSecureStore('accessToken');
 
-  const { data } = await axiosInstance.get("/auth/me", {
+  const { data } = await axiosInstance.get('/auth/me', {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
@@ -31,4 +33,10 @@ async function getMe(): Promise<Profile> {
   return data;
 }
 
-export { postSignup, postLogin, getMe };
+async function getUserProfile(id: number): Promise<Profile> {
+  const { data } = await axiosInstance.get(`/auth/${id}`);
+
+  return data;
+}
+
+export { postSignup, postLogin, getMe, getUserProfile };

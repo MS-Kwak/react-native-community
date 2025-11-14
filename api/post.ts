@@ -24,6 +24,14 @@ async function getMyPosts(page = 1): Promise<Post[]> {
   return data;
 }
 
+async function getUserPosts(id: number, page = 1): Promise<Post[]> {
+  const { data } = await axiosInstance.get(
+    `/posts/user/${id}?page=${page}`
+  );
+
+  return data;
+}
+
 async function getLikedPosts(page = 1): Promise<Post[]> {
   const { data } = await axiosInstance.get(`/likes?page=${page}`);
 
@@ -86,4 +94,5 @@ export {
   likePost,
   getMyPosts,
   getLikedPosts,
+  getUserPosts,
 };
