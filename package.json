@@ -20,7 +20,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@dev-plugins/react-query": "^0.1.0",
+    "@dev-plugins/react-query": "~0.2.0",
     "@expo/react-native-action-sheet": "^4.1.1",
     "@expo/vector-icons": "^14.0.2",
     "@react-navigation/bottom-tabs": "^7.0.0",
@@ -52,7 +52,8 @@
     "react-native-screens": "~4.1.0",
     "react-native-toast-message": "^2.3.3",
     "react-native-web": "~0.19.13",
-    "react-native-webview": "13.12.2"
+    "react-native-webview": "13.12.2",
+    "expo-image-picker": "~16.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

@@ -8,6 +8,7 @@ import { ImageUri } from '@/types';
 import { useNavigation } from 'expo-router';
 import { useEffect } from 'react';
 import CustomButton from '@/components/CustomButton';
+import PostWriteFooter from '@/components/PostWriteFooter';
 
 type FormValues = {
   title: string;
@@ -51,6 +52,8 @@ export default function PostWriteScreen() {
         <TitleInput />
         <DescriptionInput />
       </KeyboardAwareScrollView>
+
+      <PostWriteFooter />
     </FormProvider>
   );
 }
