@@ -1,5 +1,5 @@
-import { colors } from "@/constants";
-import { Stack } from "expo-router";
+import { colors } from '@/constants';
+import { Stack } from 'expo-router';
 
 export default function SettingLayout() {
   return (
@@ -7,7 +7,7 @@ export default function SettingLayout() {
       screenOptions={{
         headerShown: false,
         contentStyle: {
-          backgroundColor: colors.WHITE,
+          backgroundColor: colors.GRAY_200,
         },
       }}
     >
@@ -15,7 +15,7 @@ export default function SettingLayout() {
         name="index"
         options={{
           headerShown: false,
-          title: "설정",
+          title: '설정',
         }}
       />
     </Stack>
