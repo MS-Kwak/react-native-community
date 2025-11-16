@@ -1,13 +1,16 @@
-import axios from "axios";
-import { Platform } from "react-native";
+import axios from 'axios';
+import { Platform } from 'react-native';
 
 export const baseUrls = {
-  android: "http://10.0.2.2:3030",
-  ios: "http://localhost:3030",
+  // android: "http://10.0.2.2:3030",
+  // ios: "http://localhost:3030",
+  android: 'http://192.168.45.181:3030',
+  ios: 'http://192.168.45.181:3030',
 };
 
 const axiosInstance = axios.create({
-  baseURL: Platform.OS === "android" ? baseUrls.android : baseUrls.ios,
+  baseURL:
+    Platform.OS === 'android' ? baseUrls.android : baseUrls.ios,
 });
 
 export default axiosInstance;
