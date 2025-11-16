@@ -1,9 +1,10 @@
-import FixedBottomCTA from "@/components/FixedBottomCTA";
-import { StyleSheet, View } from "react-native";
-import { FormProvider, useForm } from "react-hook-form";
-import EmailInput from "@/components/EmailInput";
-import PasswordInput from "@/components/PasswordInput";
-import useAuth from "@/hooks/queries/useAuth";
+import FixedBottomCTA from '@/components/FixedBottomCTA';
+import { StyleSheet, View } from 'react-native';
+import { FormProvider, useForm } from 'react-hook-form';
+import EmailInput from '@/components/EmailInput';
+import PasswordInput from '@/components/PasswordInput';
+import useAuth from '@/hooks/queries/useAuth';
+import usePushNotification from '@/hooks/usePushNotification';
 
 type FormValues = {
   email: string;
@@ -12,16 +13,18 @@ type FormValues = {
 
 export default function LoginScreen() {
   const { loginMutation } = useAuth();
+  const { expoPushToken } = usePushNotification();
+  console.log('expoPushToken', expoPushToken);
+
   const loginForm = useForm<FormValues>({
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   });
 
   const onSubmit = (formValues: FormValues) => {
-    const { email, password } = formValues;
-    loginMutation.mutate({ email, password });
+    loginMutation.mutate({ ...formValues, expoPushToken });
   };
 
   return (
