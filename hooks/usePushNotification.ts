@@ -15,11 +15,16 @@ function usePushNotification() {
     useRef<Notifications.EventSubscription | null>(null);
 
   const handleRegistrationError = (errorMessage: string) => {
-    alert(errorMessage);
-    throw new Error(errorMessage);
+    console.log('Push notification error:', errorMessage);
   };
 
   const registerForPushNotificationsAsync = async () => {
+    // Expo Go 환경에서는 실행하지 않음
+    if (Constants.appOwnership === 'expo') {
+      console.log('Push notifications are not available in Expo Go');
+      return;
+    }
+
     if (Platform.OS === 'android') {
       Notifications.setNotificationChannelAsync('default', {
         name: 'default',
@@ -64,6 +69,11 @@ function usePushNotification() {
   };
 
   useEffect(() => {
+    // Expo Go 환경에서는 실행하지 않음
+    if (Constants.appOwnership === 'expo') {
+      return;
+    }
+
     registerForPushNotificationsAsync()
       .then((token) => setExpoPushToken(token ?? ''))
       .catch((error: any) => console.log('error', error));

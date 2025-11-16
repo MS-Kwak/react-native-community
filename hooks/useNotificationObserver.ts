@@ -2,8 +2,12 @@ import { useEffect } from 'react';
 import * as Notifications from 'expo-notifications';
 import { router } from 'expo-router';
 
-function useNotificationObserver() {
+function useNotificationObserver(enabled: boolean = true) {
   useEffect(() => {
+    if (!enabled) {
+      return;
+    }
+
     let isMounted = true;
 
     const redirect = (notification: Notifications.Notification) => {
@@ -38,7 +42,7 @@ function useNotificationObserver() {
       isMounted = false;
       subscription.remove();
     };
-  }, []);
+  }, [enabled]);
 }
 
 export default useNotificationObserver;
