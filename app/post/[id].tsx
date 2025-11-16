@@ -10,13 +10,13 @@ import { Fragment, useRef, useState } from 'react';
 import {
   Keyboard,
   Pressable,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function PostDetailScreen() {

@@ -3,7 +3,8 @@ import { colors } from '@/constants';
 import useAuth from '@/hooks/queries/useAuth';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { Pressable, SafeAreaView, StyleSheet } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function HomeScreen() {
   const { auth } = useAuth();

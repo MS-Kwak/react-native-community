@@ -10,8 +10,9 @@ function usePushNotification() {
     Notifications.Notification | undefined
   >(undefined);
   const notificationListener =
-    useRef<Notifications.EventSubscription>();
-  const responseListener = useRef<Notifications.EventSubscription>();
+    useRef<Notifications.EventSubscription | null>(null);
+  const responseListener =
+    useRef<Notifications.EventSubscription | null>(null);
 
   const handleRegistrationError = (errorMessage: string) => {
     alert(errorMessage);
@@ -82,14 +83,12 @@ function usePushNotification() {
       );
 
     return () => {
-      notificationListener.current &&
-        Notifications.removeNotificationSubscription(
-          notificationListener.current
-        );
-      responseListener.current &&
-        Notifications.removeNotificationSubscription(
-          responseListener.current
-        );
+      if (notificationListener.current) {
+        notificationListener.current.remove();
+      }
+      if (responseListener.current) {
+        responseListener.current.remove();
+      }
     };
   }, []);
 

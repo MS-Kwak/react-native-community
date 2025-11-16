@@ -1,7 +1,6 @@
 import {
   Image,
   Platform,
-  SafeAreaView,
   StyleSheet,
   Text,
   View,
