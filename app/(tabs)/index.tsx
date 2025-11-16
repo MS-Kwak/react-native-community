@@ -1,9 +1,17 @@
 import FeedList from '@/components/FeedList';
+import SearchInput from '@/components/SearchInput';
 import { colors } from '@/constants';
 import useAuth from '@/hooks/queries/useAuth';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
-import { Pressable, StyleSheet } from 'react-native';
+import {
+  Image,
+  Platform,
+  Pressable,
+  StatusBar,
+  StyleSheet,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function HomeScreen() {
@@ -11,6 +19,17 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.inputContainer}>
+        <Image
+          source={require('@/assets/images/logo.png')}
+          style={styles.logo}
+        />
+        <SearchInput
+          readOnly
+          placeholder="글 제목 검색"
+          onPress={() => router.push('/post/search')}
+        />
+      </View>
       <FeedList />
       {auth.id && (
         <Pressable
@@ -28,6 +47,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.WHITE,
+  },
+  inputContainer: {
+    marginBottom: 8,
+    paddingHorizontal: 16,
+    gap: 8,
+    backgroundColor: colors.WHITE,
+    flexDirection: 'row',
+    paddingTop:
+      Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+  },
+  logo: {
+    height: 44,
+    width: 44,
   },
   writeButton: {
     position: 'absolute',
